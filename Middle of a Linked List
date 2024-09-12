@@ -1,0 +1,76 @@
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        next = null;
+    }
+}
+
+class Solution {
+    // Function to find the middle element of the linked list
+    int getMiddle(Node head) {
+        if (head == null) {
+            return -1; // If the linked list is empty, return -1
+        }
+        
+        Node slow = head;
+        Node fast = head;
+        
+        // Move 'fast' pointer two steps and 'slow' pointer one step at a time
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        // 'slow' will be at the middle element when the loop exits
+        return slow.data;
+    }
+    
+    // Function to add a node to the end of the list
+    public Node insert(Node head, int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            return newNode;
+        }
+        
+        Node current = head;
+        while (current.next != null) {
+            current = current.next;
+        }
+        current.next = newNode;
+        return head;
+    }
+    
+    // Function to display the list (for testing purposes)
+    public void printList(Node head) {
+        Node current = head;
+        while (current != null) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        
+        Node head = null;
+        
+        // Example input
+        head = solution.insert(head, 1);
+        head = solution.insert(head, 2);
+        head = solution.insert(head, 3);
+        head = solution.insert(head, 4);
+        head = solution.insert(head, 5);
+        
+        // Display the list
+        System.out.println("Linked List:");
+        solution.printList(head);
+        
+        // Find and print the middle element
+        int middle = solution.getMiddle(head);
+        System.out.println("Middle Element: " + middle);
+    }
+}
